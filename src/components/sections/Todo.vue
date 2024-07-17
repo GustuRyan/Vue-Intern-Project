@@ -1,52 +1,36 @@
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 import TodoBar from '../contents/todo-bar.vue';
 
 const items = ref([
-    {
-        name: 'Hi Travel Bali',
-        status: 'Pending',
-    },
-    {
-        name: 'Dashboard Admin',
-        status: 'Pending',
-    },
-    {
-        name: 'Oracle App',
-        status: 'Done',
-    },
-    {
-        name: 'Login Page',
-        status: 'Pending',
-    },
-    {
-        name: 'Sign Up Page',
-        status: 'Pending',
-    },
-    {
-        name: 'Dashboard Admin',
-        status: 'On Going',
-    },
+    { id: 1, name: 'Hi Travel Bali', status: 'Pending' },
+    { id: 2, name: 'Dashboard Admin', status: 'Pending' },
+    { id: 3, name: 'Oracle App', status: 'Done' },
+    { id: 4, name: 'Login Page', status: 'Pending' },
+    { id: 5, name: 'Sign Up Page', status: 'Pending' },
+    { id: 6, name: 'Dashboard Admin', status: 'On Going' },
 ]);
 
 const newTask = ref('');
+const nextId = ref(items.value.length + 1);
 
 const addInput = () => {
     if (newTask.value.trim() !== '') {
-        items.value.push({ name: newTask.value, status: 'Pending' });
+        items.value.push({ id: nextId.value, name: newTask.value, status: 'Pending' });
+        nextId.value++; // Increment nextId for the next new task
         newTask.value = ''; // Reset input field
     }
 };
 
-const updateStatus = (name, newStatus) => {
-    const item = items.value.find(item => item.name === name);
+const updateStatus = (id, newStatus) => {
+    const item = items.value.find(item => item.id === id);
     if (item) {
         item.status = newStatus;
     }
 };
 
-const deleteItem = (name) => {
-    items.value = items.value.filter(item => item.name !== name);
+const deleteItem = (id) => {
+    items.value = items.value.filter(item => item.id !== id);
 };
 </script>
 
@@ -61,9 +45,10 @@ const deleteItem = (name) => {
                     </h1>
                 </div>
                 <section class="w-full h-full flex flex-col gap-3">
-                    <div v-for="item in items" :key="item.name">
-                        <TodoBar :name="item.name" :status="item.status" @update-status="updateStatus"
-                            @delete-item="deleteItem" />
+                    <div v-for="item in items" :key="item.id">
+                        <TodoBar :id="item.id" :name="item.name" :status="item.status" 
+                                 @update-status="updateStatus"
+                                 @delete-item="deleteItem" />
                     </div>
                     <form @submit.prevent="addInput">
                         <input class="w-full h-full border-b-2 flex py-4 text-lg" v-model="newTask" type="text"
