@@ -62,17 +62,15 @@ const deleteItem = (name) => {
                 </div>
                 <section class="w-full h-full flex flex-col gap-3">
                     <div v-for="item in items" :key="item.name">
-                        <TodoBar 
-                            :name="item.name" 
-                            :status="item.status" 
-                            @update-status="updateStatus" 
-                            @delete-item="deleteItem" 
-                        />
+                        <TodoBar :name="item.name" :status="item.status" @update-status="updateStatus"
+                            @delete-item="deleteItem" />
                     </div>
                     <form @submit.prevent="addInput">
-                        <input class="w-full h-full border-b-2 flex py-4 text-lg" v-model="newTask"
-                            type="text" placeholder="Write new task here...">
-                        <button type="submit">Submit</button>
+                        <input class="w-full h-full border-b-2 flex py-4 text-lg" v-model="newTask" type="text"
+                            placeholder="Write new task here...">
+                        <div class="w-full flex justify-end mt-4">
+                            <button class="bg-[#F5F5F5] px-4 py-2 text-lg rounded-lg hover:bg-[#d8d8d8]" type="submit">Submit</button>
+                        </div>
                     </form>
                 </section>
             </div>
