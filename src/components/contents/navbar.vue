@@ -1,6 +1,6 @@
 <template>
     <nav class="w-screen px-[80px] py-[26px] fixed flex justify-between bg-white z-50 border-b-2">
-        <div>
+        <div class="flex items-center">
             <img src="/public/images/Logo-Ipsum.png" alt="">
         </div>
         <div class="flex gap-4 items-center">
