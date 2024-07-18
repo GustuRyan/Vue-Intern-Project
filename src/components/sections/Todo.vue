@@ -17,8 +17,8 @@ const nextId = ref(items.value.length + 1);
 const addInput = () => {
     if (newTask.value.trim() !== '') {
         items.value.push({ id: nextId.value, name: newTask.value, status: 'Pending' });
-        nextId.value++; // Increment nextId for the next new task
-        newTask.value = ''; // Reset input field
+        nextId.value++; 
+        newTask.value = ''; 
     }
 };
 
@@ -36,7 +36,7 @@ const deleteItem = (id) => {
 
 <template>
     <main class="w-full h-full">
-        <section class="px-[40px] py-[80px] w-full h-full">
+        <section class="p-[80px] w-full h-full">
             <div
                 class="w-full h-full flex flex-col justify-between bg-white border-[1px] border-[#DDDDDD] rounded-xl shadow-lg p-[40px] gap-8">
                 <div class="w-full flex justify-between border-b-2 pb-4">

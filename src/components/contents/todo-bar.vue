@@ -26,7 +26,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent, ref, toRefs } from 'vue';
+
+export default defineComponent({
     props: {
         id: {
             type: Number,
@@ -41,18 +43,23 @@ export default {
             required: true
         }
     },
-    data() {
+    setup(props, { emit }) {
+        const { id, status } = toRefs(props);
+        const selectedStatus = ref(status.value);
+
+        const updateStatus = () => {
+            emit('update-status', id.value, selectedStatus.value);
+        };
+
+        const deleteItem = () => {
+            emit('delete-item', id.value);
+        };
+
         return {
-            selectedStatus: this.status
-        }
-    },
-    methods: {
-        updateStatus() {
-            this.$emit('update-status', this.id, this.selectedStatus);
-        },
-        deleteItem() {
-            this.$emit('delete-item', this.id);
-        }
+            selectedStatus,
+            updateStatus,
+            deleteItem
+        };
     }
-}
+});
 </script>
