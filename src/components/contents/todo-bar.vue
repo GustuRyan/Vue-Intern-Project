@@ -4,7 +4,8 @@
             <div v-if="status === 'Pending'" class="w-10 h-10 rounded-xl bg-red-200 flex justify-center items-center">
                 <img class="w-8 h-8" src="/public/images/close_fill.svg" alt="">
             </div>
-            <div v-else-if="status === 'On Going'" class="w-10 h-10 rounded-xl bg-yellow-200 flex justify-center items-center">
+            <div v-else-if="status === 'On Going'"
+                class="w-10 h-10 rounded-xl bg-yellow-200 flex justify-center items-center">
                 <img class="w-8 h-8" src="/public/images/minimize_fill.svg" alt="">
             </div>
             <div v-else class="w-10 h-10 rounded-xl bg-green-200 flex justify-center items-center">
@@ -25,41 +26,25 @@
     </div>
 </template>
 
-<script>
-import { defineComponent, ref, toRefs } from 'vue';
+<script setup>
+import { defineEmits, defineProps, ref, toRefs } from 'vue';
 
-export default defineComponent({
-    props: {
-        id: {
-            type: Number,
-            required: true
-        },
-        name: {
-            type: String,
-            required: true
-        },
-        status: {
-            type: String,
-            required: true
-        }
-    },
-    setup(props, { emit }) {
-        const { id, status } = toRefs(props);
-        const selectedStatus = ref(status.value);
-
-        const updateStatus = () => {
-            emit('update-status', id.value, selectedStatus.value);
-        };
-
-        const deleteItem = () => {
-            emit('delete-item', id.value);
-        };
-
-        return {
-            selectedStatus,
-            updateStatus,
-            deleteItem
-        };
-    }
+const props = defineProps({
+    id: Number,
+    name: String,
+    status: String
 });
+
+const { id, status } = toRefs(props);
+const selectedStatus = ref(props.status);
+
+const emit = defineEmits(['update-status', 'delete-item']);
+
+const updateStatus = () => {
+    emit('update-status', id.value, selectedStatus.value);
+};
+
+const deleteItem = () => {
+    emit('delete-item', id.value);
+};
 </script>
