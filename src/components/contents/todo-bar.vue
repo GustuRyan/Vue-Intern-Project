@@ -26,25 +26,33 @@
     </div>
 </template>
 
-<script setup>
-import { defineEmits, defineProps, ref, toRefs } from 'vue';
+<script>
+import { defineComponent } from 'vue';
+import { useTodoBar } from '../../composables/todoFunction';
 
-const props = defineProps({
-    id: Number,
-    name: String,
-    status: String
+export default defineComponent({
+    props: {
+        id: {
+            type: Number,
+            required: true
+        },
+        name: {
+            type: String,
+            required: true
+        },
+        status: {
+            type: String,
+            required: true
+        }
+    },
+    setup(props, { emit }) {
+        const { selectedStatus, updateStatus, deleteItem } = useTodoBar(props, emit);
+
+        return {
+            selectedStatus,
+            updateStatus,
+            deleteItem
+        };
+    }
 });
-
-const { id, status } = toRefs(props);
-const selectedStatus = ref(props.status);
-
-const emit = defineEmits(['update-status', 'delete-item']);
-
-const updateStatus = () => {
-    emit('update-status', id.value, selectedStatus.value);
-};
-
-const deleteItem = () => {
-    emit('delete-item', id.value);
-};
 </script>
