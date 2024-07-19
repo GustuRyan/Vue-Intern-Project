@@ -32,6 +32,18 @@ const updateStatus = (id, newStatus) => {
 const deleteItem = (id) => {
     items.value = items.value.filter(item => item.id !== id);
 };
+// import { useTodo } from '../../composables/todoFunction';
+// export default defineComponent({
+//     setup() {
+//         const { addInput, updateStatus, deleteItem } = useTodo(items);
+
+//         return {
+//             addInput,
+//             updateStatus,
+//             deleteItem
+//         };
+//     }
+// });
 </script>
 
 <template>
