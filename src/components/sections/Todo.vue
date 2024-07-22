@@ -1,49 +1,9 @@
 <script setup>
 import { ref } from 'vue';
 import TodoBar from '../contents/todo-bar.vue';
+import { useTodo } from '../../composables/todoFunction';
 
-const items = ref([
-    { id: 1, name: 'Hi Travel Bali', status: 'Pending' },
-    { id: 2, name: 'Dashboard Admin', status: 'Pending' },
-    { id: 3, name: 'Oracle App', status: 'Done' },
-    { id: 4, name: 'Login Page', status: 'Pending' },
-    { id: 5, name: 'Sign Up Page', status: 'Pending' },
-    { id: 6, name: 'Dashboard Admin', status: 'On Going' },
-]);
-
-const newTask = ref('');
-const nextId = ref(items.value.length + 1);
-
-const addInput = () => {
-    if (newTask.value.trim() !== '') {
-        items.value.push({ id: nextId.value, name: newTask.value, status: 'Pending' });
-        nextId.value++;
-        newTask.value = '';
-    }
-};
-
-const updateStatus = (id, newStatus) => {
-    const item = items.value.find(item => item.id === id);
-    if (item) {
-        item.status = newStatus;
-    }
-};
-
-const deleteItem = (id) => {
-    items.value = items.value.filter(item => item.id !== id);
-};
-// import { useTodo } from '../../composables/todoFunction';
-// export default defineComponent({
-//     setup() {
-//         const { addInput, updateStatus, deleteItem } = useTodo(items);
-
-//         return {
-//             addInput,
-//             updateStatus,
-//             deleteItem
-//         };
-//     }
-// });
+const { addInput, updateStatus, deleteItem, items, newTask } = useTodo();
 </script>
 
 <template>

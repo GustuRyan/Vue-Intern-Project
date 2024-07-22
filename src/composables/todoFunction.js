@@ -1,5 +1,14 @@
 import { defineComponent, ref, toRefs } from 'vue';
 
+const items = ref([
+    { id: 1, name: 'Hi Travel Bali', status: 'Pending' },
+    { id: 2, name: 'Dashboard Admin', status: 'Pending' },
+    { id: 3, name: 'Oracle App', status: 'Done' },
+    { id: 4, name: 'Login Page', status: 'Pending' },
+    { id: 5, name: 'Sign Up Page', status: 'Pending' },
+    { id: 6, name: 'Dashboard Admin', status: 'On Going' },
+]);
+
 export function useTodoBar(props, emit) {
     const { id, status } = toRefs(props);
     const selectedStatus = ref(status.value);
@@ -19,7 +28,7 @@ export function useTodoBar(props, emit) {
     };
 }
 
-export function useTodo(items) {
+export function useTodo() {
     const newTask = ref('');
     const nextId = ref(items.value.length + 1);
 
@@ -46,6 +55,8 @@ export function useTodo(items) {
         addInput,
         updateStatus,
         deleteItem,
-        newTask
+        newTask,
+        nextId,
+        items
     };
 }
