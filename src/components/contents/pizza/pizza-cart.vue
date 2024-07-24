@@ -8,15 +8,19 @@
         </div>
         <div class="w-full h-full flex flex-col">
             <h2 class="text-sm text-[#717171] ">TOPPING</h2>
-            <div v-for="topping in toppings" class="w-full flex justify-between">
+            <div v-if="toppings.length != 0" v-for="topping in toppings" class="w-full flex justify-between">
                 <span class="text-lg">{{ topping.name }}</span>
                 <span class="text-[#717171]">Rp. {{ topping.prices }}</span>
+            </div>
+            <div v-else class="w-full flex justify-between">
+                <span class="text-lg">Tidak ada</span>
+                <span class="text-[#717171]">Rp. -,</span>
             </div>
         </div>
         <p class="w-full flex justify-end font-bold text-xl">
             <span>Rp. {{ cart.totalPrice }}</span>
         </p>
-        <button class="w-fit">
+        <button @click="$emit('delete-cart'), $emit('update-overall-prices')" class="w-fit">
             <img src="/images/bin-logo.svg" alt="bin-logo" class="w-8 h-8 mb-4 hover:opacity-70">
         </button>
     </div>
@@ -42,5 +46,5 @@ const props = defineProps({
     },
 });
 
-const emit = defineEmits(['change-open'])
+const emit = defineEmits(['change-open', 'delete-cart', 'update-overall-prices'])
 </script>

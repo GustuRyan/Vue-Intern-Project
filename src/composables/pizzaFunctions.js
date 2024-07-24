@@ -89,3 +89,71 @@ export function pizzaSearch() {
         pizzaPrices,
     };
 }
+
+export function pizzaOrder() {
+    const overallPrices = ref(0);
+    const toppingList = ref([]);
+
+    carts.value.forEach(cart => {
+        overallPrices.value += cart.totalPrice;
+    });
+
+    const addTopping = (toppingId, toppingPrices) => {
+        const listId = ref(toppingList.value.length + 1);
+        const free = ref(true);
+
+        if (toppingList.value != null) {
+            toppingList.value.forEach(topping => {
+                if (toppingId == topping.topping) {
+                    free.value = false;
+                }
+            });
+        }
+
+        if (free.value) {
+            toppingList.value.push({ topping: toppingId, prices: toppingPrices });
+        }
+    };
+
+    const removeTopping = () => {
+        toppingList.value.length = 0;
+    };
+
+    const lastPrices = ref(0);
+    const addCart = (pizzaId, pizzaPrices, toppingList) => {
+        const addedTopping = ref([]);
+        const nextId = ref(carts.value.length + 1);
+        const totalCount = ref(pizzaPrices);
+
+        toppingList.forEach(topping => {
+            addedTopping.value.push(topping.topping);
+            totalCount.value += topping.prices;
+        });
+
+        carts.value.push({ id: nextId.value, pizza: pizzaId, toppings: addedTopping, totalPrice: totalCount.value });
+        toppingList.length = 0;
+        lastPrices.value = totalCount.value;
+    };
+
+    const deleteCart = (id, prices) => {
+        carts.value = carts.value.filter(cart => cart.id !== id);
+    };
+    
+    const updateOverall = (currentPrices) => {
+        overallPrices.value = 0;
+
+        carts.value.forEach(cart => {
+            overallPrices.value += cart.totalPrice;
+        });
+    };
+    return {
+        overallPrices,
+        toppingList,
+        lastPrices,
+        addTopping,
+        removeTopping,
+        addCart,
+        updateOverall,
+        deleteCart
+    };
+}
