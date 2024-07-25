@@ -8,6 +8,4 @@ import Pizza from './sections/Pizza.vue'
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

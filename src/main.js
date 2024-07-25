@@ -4,6 +4,7 @@ import './style.css'
 import App from './App.vue'
 import Todo from './components/TodoView.vue'
 import Pizza from './components/PizzaView.vue'
+import { createPinia } from 'pinia';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -13,10 +14,17 @@ const router = createRouter({
     ]
 });
 
+const pinia = createPinia();
 const app = createApp(App)
 
 app.use(router);
+app.use(pinia);
 app.component('to-do', Todo);
 app.component('pizza', Pizza);
 
 app.mount('#app')
+
+
+
+
+
