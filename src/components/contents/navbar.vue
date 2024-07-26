@@ -8,9 +8,9 @@
             <router-link to="/pizza">Pizza</router-link>
         </ul>
         <div class="flex gap-4 items-center">
-            <img class="rounded-full w-10 h-10" src="/images/bali-img.png" alt="">
+            <img class="rounded-full w-10 h-10 object-cover" src="/images/sunset.jpg" alt="">
             <p class="text-lg font-semibold">
-                User 123456
+                User 987654
             </p>
         </div>
     </nav>
