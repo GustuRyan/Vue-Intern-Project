@@ -1,5 +1,5 @@
 <template>
-    <div    class="w-full h-full">
+    <div class="w-full h-full">
         <section class="flex justify-center items-center w-screen h-screen">
             <div class="w-[56%] h-fit flex flex-col bg-white rounded-lg shadow-lg fixed z-[65] top-[30%]">
                 <div class="w-full p-5 text-xl font-bold">
@@ -91,6 +91,19 @@ onMounted(() => {
     allToppings.forEach(update => {
         addTopping(update.id, update.prices);    
         // console.log('test' + update.id);
+    });
+
+    const handleEscapeKey = (event) => {
+        if (event.key === 'Escape') {
+            emit('change-open');
+        }
+    };
+
+    window.addEventListener('keydown', handleEscapeKey);
+
+    onUnmounted(() => {
+        window.removeEventListener('keydown', handleEscapeKey);
+        clearCheck();
     });
 });
 
